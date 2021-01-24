@@ -17,6 +17,7 @@ import static org.junit.Assert.fail;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class MemberServiceTest {
     @Autowired EntityManager em;
     @Autowired MemberService memberService;
@@ -62,4 +63,30 @@ public class MemberServiceTest {
         fail("예외가 발생해야 한다.");
     }
 
+    @Test
+    public void 로그인_성공(){
+        Member member1 = new Member();
+        member1.setEmail("a@naver.com");
+        member1.setPassword("1234");
+        member1.setName("효빈");
+        member1.setPhone("010-1111-1111");
+        memberService.join(member1);
+
+        Member is_member = memberService.login("a@naver.com","1234");
+
+        Assertions.assertEquals(member1.getName(), is_member.getName());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void 로그인_실패(){
+        Member member1 = new Member();
+        member1.setEmail("a@naver.com");
+        member1.setPassword("1234");
+        member1.setName("효빈");
+        member1.setPhone("010-1111-1111");
+        memberService.join(member1);
+
+        Member is_member = memberService.login("a@naver.com","12");
+        fail("예외가 발생해야 한다.");
+    }
 }

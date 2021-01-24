@@ -2,6 +2,7 @@ package nike.core.repository;
 
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Member;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -36,5 +37,12 @@ public class MemberRepository {
                 .getResultList();
     }
 
-
+    // TODO : security 활용으로 수정
+    // 로그인
+    public Member isMember(String email, String password){
+        return em.createQuery("select m from Member m where m.email = :email and m.password = :password", Member.class)
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getSingleResult();
+    }
 }
