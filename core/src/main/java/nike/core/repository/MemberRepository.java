@@ -32,7 +32,7 @@ public class MemberRepository {
     }
 
     // DB에서 모든 회원 검색
-    public List<Member> findAllMember(Long id){
+    public List<Member> findAllMember(){
         return em.createQuery("select  m from Member m", Member.class)
                 .getResultList();
     }
