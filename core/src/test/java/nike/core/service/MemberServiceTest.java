@@ -12,6 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.Optional;
+
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 
@@ -66,15 +69,15 @@ public class MemberServiceTest {
     @Test
     public void 로그인_성공(){
         Member member1 = new Member();
-        member1.setEmail("a@naver.com");
-        member1.setPassword("1234");
-        member1.setName("효빈");
-        member1.setPhone("010-1111-1111");
+        member1.setEmail("c@naver.com");
+        member1.setPassword("5555");
+        member1.setName("민지");
+        member1.setPhone("010-4434-6331");
         memberService.join(member1);
 
-        Member is_member = memberService.login("a@naver.com","1234");
+        Member is_member = memberService.login("c@naver.com","5555");
 
-        Assertions.assertEquals(member1.getName(), is_member.getName());
+        Assertions.assertEquals(member1, is_member);
     }
 
     @Test(expected = IllegalStateException.class)
