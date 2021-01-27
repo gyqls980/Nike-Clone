@@ -11,6 +11,8 @@ import nike.core.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -33,5 +35,10 @@ public class OrderService {
         // order 설정을 cascade해서 이거만 저장해도 orderItem, Delivery 자동 저장된다.
         orderRepository.save(order);
         return order.getId();
+    }
+
+    // 주문 검색
+    public List<Order> findOrders(Member member) {
+        return orderRepository.findAllOrder(member);
     }
 }
