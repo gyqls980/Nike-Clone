@@ -37,7 +37,7 @@ public class MemberRepository {
                 .getResultList();
     }
 
-    // TODO : security 활용으로 수정
+    // TODO(HYOBIN) : security 활용으로 수정
     // 로그인
     public Member isMember(String email, String password){
         return em.createQuery("select m from Member m where m.email = :email and m.password = :password", Member.class)
