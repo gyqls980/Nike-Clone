@@ -57,7 +57,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void 상품조회() {
+    public void 주문조회() {
         Member member = new Member();
         member.setEmail("a@naver.com");
         member.setPassword("5678");
@@ -78,6 +78,26 @@ public class OrderServiceTest {
 
         System.out.println("주문 주소 : " + getOrder.getAddress() + " / 조회 주문 주소 : " + orderlist.get(0).getAddress());
         assertEquals("상품 주문시 상태는 ORDER", OrderStatus.READY, orderlist.get(0).getStatus());
+    }
 
+    @Test
+    public void 주문취소(){
+        Member member = new Member();
+        member.setEmail("a@naver.com");
+        member.setPassword("5678");
+        member.setName("지연");
+        member.setPhone("010-2222-2222");
+        em.persist(member);
+
+        Item item = itemRepository.findItemById(1L);
+
+        int orderCount=2;
+        String addr = "서울시 국민대학교";
+        Long orderId = orderService.order(member.getId(), addr, item.getId(), orderCount);
+
+        orderService.cancelOrder(orderId);
+        Order getOrder = orderRepository.findOne(orderId);
+
+        assertEquals("주문 취소 시 상태는 CANCEL이다.", OrderStatus.CANCEL, getOrder.getStatus());
     }
 }

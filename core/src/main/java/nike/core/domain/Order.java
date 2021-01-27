@@ -58,4 +58,16 @@ public class Order {
         return order;
     }
 
+    // 주문취소
+    public void cancel(){
+        if(status == OrderStatus.DELIVERING || status == OrderStatus.COMP){
+            throw new IllegalStateException("현재는 상품 취소가 불가능합니다.");
+        }
+        this.setStatus(OrderStatus.CANCEL);
+        // TODO(HYOBIN) : 상품 재고 수량 고려 시 구현 필요
+        /*for (OrderItem orderItem : orderItems) {
+            orderItem.cancel();
+        }*/
+    }
+
 }
