@@ -28,4 +28,5 @@ public class Item {
 
     private Boolean onlyMember;
 
+
 }

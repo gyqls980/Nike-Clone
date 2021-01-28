@@ -32,12 +32,12 @@ public class MemberRepository {
     }
 
     // DB에서 모든 회원 검색
-    public List<Member> findAllMember(Long id){
+    public List<Member> findAllMember(){
         return em.createQuery("select  m from Member m", Member.class)
                 .getResultList();
     }
 
-    // TODO : security 활용으로 수정
+    // TODO(HYOBIN) : security 활용으로 수정
     // 로그인
     public Member isMember(String email, String password){
         return em.createQuery("select m from Member m where m.email = :email and m.password = :password", Member.class)
