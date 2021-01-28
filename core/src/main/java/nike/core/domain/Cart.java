@@ -1,11 +1,12 @@
 package nike.core.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Cart {
     @Id @GeneratedValue
     @Column(name = "cart_id")
@@ -21,4 +22,5 @@ public class Cart {
 
     private int itemPrice; //주문 가격
     private int itemCount; //주문 수량
+
 }
