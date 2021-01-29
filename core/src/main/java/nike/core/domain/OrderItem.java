@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "order_item")
-@Getter
+@Getter @Setter
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -23,5 +23,14 @@ public class OrderItem {
     private Item item; //주문 상품
 
     private int itemPrice; //주문 가격
-    private int itemCount; //주
+    private int itemCount; //주문 수량
+
+    // 생성 메서드 //
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setItemPrice(orderPrice);
+        orderItem.setItemCount(count);
+        return orderItem;
+    }
 }

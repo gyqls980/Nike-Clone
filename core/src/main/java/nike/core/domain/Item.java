@@ -1,10 +1,12 @@
 package nike.core.domain;
 
 import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id")
@@ -25,5 +27,6 @@ public class Item {
     private String detail;
 
     private Boolean onlyMember;
+
 
 }

@@ -37,7 +37,7 @@ public class Member {
     }
 
     public void setPassword(String password) {
-        // TODO : security 활용으로 수정
+        // TODO(HYOBIN) : security 활용으로 수정
         // this.password = new BCryptPasswordEncoder().encode(password);
         this.password = password;
     }
