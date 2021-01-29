@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -39,10 +40,10 @@ public class MemberRepository {
 
     // TODO(HYOBIN) : security 활용으로 수정
     // 로그인
-    public Member isMember(String email, String password){
+    public Optional<Member> isMember(String email, String password){
         return em.createQuery("select m from Member m where m.email = :email and m.password = :password", Member.class)
                 .setParameter("email", email)
                 .setParameter("password", password)
-                .getSingleResult();
+                .getResultStream().findAny();
     }
 }

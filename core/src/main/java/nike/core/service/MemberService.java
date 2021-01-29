@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -34,13 +35,15 @@ public class MemberService {
 
     // TODO(HYOBIN) : security 활용으로 수정
     // 로그인
-    public Member login(String email, String password){
-        try{
-            Member member = memberRepository.isMember(email, password);
+    public Optional<Member> login(String email, String password){
+        /*try{
+            Optional<Member> member = memberRepository.isMember(email, password);
             return member;
         }
         catch(Exception e) {
             throw new IllegalStateException("존재하지 않는 회원이거나 비밀번호가 틀렸습니다.");
-        }
+        }*/
+        Optional<Member> member = memberRepository.isMember(email, password);
+        return member;
     }
 }

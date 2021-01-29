@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.swing.text.html.Option;
 
 import java.util.Optional;
 
@@ -75,21 +76,21 @@ public class MemberServiceTest {
         member1.setPhone("010-4434-6331");
         memberService.join(member1);
 
-        Member is_member = memberService.login("c@naver.com","5555");
-
-        Assertions.assertEquals(member1, is_member);
+        Optional<Member> is_member = memberService.login("c@naver.com","5555");
+        Assertions.assertEquals(member1, is_member.get());
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test
     public void 로그인_실패(){
         Member member1 = new Member();
         member1.setEmail("a@naver.com");
         member1.setPassword("1234");
         member1.setName("효빈");
         member1.setPhone("010-1111-1111");
+        
         memberService.join(member1);
 
-        Member is_member = memberService.login("a@naver.com","12");
-        fail("예외가 발생해야 한다.");
+        Optional<Member> is_member = memberService.login("a@naver.com","12");
+        Assertions.assertEquals(Optional.empty(), is_member);
     }
 }
