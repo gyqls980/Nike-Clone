@@ -87,6 +87,7 @@ public class MemberServiceTest {
         member1.setPassword("1234");
         member1.setName("효빈");
         member1.setPhone("010-1111-1111");
+        
         memberService.join(member1);
 
         Optional<Member> is_member = memberService.login("a@naver.com","12");
