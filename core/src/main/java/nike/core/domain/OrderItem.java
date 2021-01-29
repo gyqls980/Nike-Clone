@@ -29,7 +29,7 @@ public class OrderItem {
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
-        orderItem.setItemPrice(orderPrice);
+        orderItem.setItemPrice(orderPrice*count);
         orderItem.setItemCount(count);
         return orderItem;
     }
