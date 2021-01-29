@@ -45,14 +45,13 @@ public class Order {
     }
 
     // 생성 메서드 //
-    public static Order createOrder(Member member, String address, OrderItem... orderItems){
+    public static Order createOrder(Member member, String address, List<OrderItem> orderItems){
         Order order = new Order();
         order.setMember(member);
         order.setAddress(address);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
-        // TODO(HYOBIN) : OrderStatus 상태 어떻게 할건지
         order.setStatus(OrderStatus.READY);
         order.setOrderDate(LocalDateTime.now());
         return order;
@@ -64,10 +63,6 @@ public class Order {
             throw new IllegalStateException("현재는 상품 취소가 불가능합니다.");
         }
         this.setStatus(OrderStatus.CANCEL);
-        // TODO(HYOBIN) : 상품 재고 수량 고려 시 구현 필요
-        /*for (OrderItem orderItem : orderItems) {
-            orderItem.cancel();
-        }*/
     }
 
 }

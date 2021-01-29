@@ -11,6 +11,7 @@ import nike.core.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,15 +23,18 @@ public class OrderService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public Long order(Long memberId, String address, Long itemId, int count) {
+    public Long order(Long memberId, String address, List<Long> itemId, int count) {
+        List<OrderItem> orderItems = new ArrayList();
         //엔티티 조회
         Member member = memberRepository.findMember(memberId);
-        Item item = itemRepository.findItemById(itemId);
-
-        //주문상품 생성
-        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+        for (Long itemid : itemId) {
+            Item item = itemRepository.findItemById(itemid);
+            //주문상품 생성
+            OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+            orderItems.add(orderItem);
+        }
         //주문 생성
-        Order order = Order.createOrder(member, address, orderItem);
+        Order order = Order.createOrder(member, address, orderItems);
         //주문 저장
         // order 설정을 cascade해서 이거만 저장해도 orderItem, Delivery 자동 저장된다.
         orderRepository.save(order);
