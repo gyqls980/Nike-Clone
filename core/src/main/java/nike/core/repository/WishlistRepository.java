@@ -27,4 +27,8 @@ public class WishlistRepository {
     public Wishlist findWishlist(Long id){
         return em.find(Wishlist.class, id);
     }
+
+    public void remove(Wishlist wishlist){
+        em.remove(wishlist);
+    }
 }

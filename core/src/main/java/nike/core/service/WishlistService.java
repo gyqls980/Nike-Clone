@@ -19,4 +19,9 @@ public class WishlistService {
 
         return wishlist.getId();
     }
+
+    public void removeWishlist(Long id){
+        Wishlist wishlist = wishlistRepository.findWishlist(id);
+        wishlistRepository.remove(wishlist);
+    }
 }
