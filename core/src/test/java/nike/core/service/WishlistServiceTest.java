@@ -3,7 +3,9 @@ package nike.core.service;
 import nike.core.domain.Item;
 import nike.core.domain.Member;
 import nike.core.domain.OrderStatus;
+import nike.core.domain.Wishlist;
 import nike.core.repository.ItemRepository;
+import nike.core.repository.WishlistRepository;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
@@ -23,6 +25,7 @@ public class WishlistServiceTest {
 
     @Autowired EntityManager em;
     @Autowired WishlistService wishlistService;
+    @Autowired WishlistRepository wishlistRepository;
     @Autowired ItemRepository itemRepository;
 
     @Test
@@ -39,7 +42,12 @@ public class WishlistServiceTest {
         Item item = itemRepository.findItemById(1L);
 
         //when
-        wishlistService.saveWishlist(member, item);
+        Long wishlistId = wishlistService.saveWishlist(member, item);
+        Wishlist wishlist = wishlistRepository.findWishlist(wishlistId);
+        System.out.println("위시리스트 id 값 : " + wishlistId);
+        
+        //then
+        assertEquals(member, wishlist.getMember());
     }
 
 }
