@@ -20,4 +20,9 @@ public class CategoryRepositoryTest {
     public void 카테고리조회() {
         System.out.println("category upper : " +categoryRepository.findCategoryById(1L).getUpperCase());
     }
+
+    @Test
+    public void 카테고리upper로조회() {
+        System.out.println("category upper : " + categoryRepository.findCategoryByUpper("Shoes"));
+    }
 }

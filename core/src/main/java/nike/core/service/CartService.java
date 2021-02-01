@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Cart;
 import nike.core.domain.Item;
+import nike.core.domain.Member;
 import nike.core.repository.CartRepository;
 import nike.core.repository.ItemRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final ItemRepository itemRepository;
 
-    // 상품등록
+    // 장바구니등록
     @Transactional
     public Long saveCart(Cart cart){
         validateDuplicateCart(cart);
@@ -25,8 +26,7 @@ public class CartService {
         return cart.getId();
     }
 
-
-    // 상품등록 시 중복방지 (Item 체크)
+    // 장바구니등록 시 중복방지 (Item 체크)
     private void validateDuplicateCart(Cart cart) {
         Item tempItem = itemRepository.findItemById(cart.getItem().getId());
         List<Cart> cartsByItem = cartRepository.findCartsByItem(tempItem);
@@ -40,10 +40,18 @@ public class CartService {
         return cartRepository.findCartById(id);
     }
 
+    // 멤버별 상품조회
+    public List<Cart> findbyMember(Member member) {
+        return member.getCarts();
+    }
+
     // 상품삭제
     public void removeCart(Cart cart){
         cartRepository.remove(cart.getId());
     }
 
-
+    // 상품수량변경
+    public void updateCount(Cart cart, Integer count){
+        cart.setItemCount(count);
+    }
 }

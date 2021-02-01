@@ -1,12 +1,13 @@
 package nike.core.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Review {
     @Id
     @GeneratedValue
@@ -21,7 +22,7 @@ public class Review {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    private float star;
+    private Integer star;
     private String comment;
     private LocalDateTime reviewDate;
 }
