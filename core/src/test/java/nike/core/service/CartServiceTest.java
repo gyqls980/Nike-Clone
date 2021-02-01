@@ -35,20 +35,24 @@ public class CartServiceTest {
         cart1.setItem(itemRepository.findItemById(1L));
         cart1.setMember(memberRepository.findMember(1L));
         cart1.setItemCount(1);
-        cart1.setItemPrice(itemRepository.findItemById(1L).getPrice());
 
         Long cart1Id = cartService.saveCart(cart1);
 
+        fail("illegal에러 안날 때 발생");
     }
 
     @Test
     public void 장바구니수정(){
         Cart cart1 = cartService.findOne(21L);
-        cart1.setItemCount(2);
+        cartService.updateCount(cart1.getId(), 2);
         Cart cart2 = cartService.findOne(21L);
         Assertions.assertEquals(2, cart2.getItemCount());
     }
 
-
+    @Test
+    public void 멤버별장바구니조회() {
+        Member member1 = memberRepository.findMember(16L);
+        System.out.println("cartService.findbyMember(member1) = " + cartService.findbyMember(member1));
+    }
 
 }

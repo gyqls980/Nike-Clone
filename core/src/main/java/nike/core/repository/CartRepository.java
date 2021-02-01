@@ -20,12 +20,12 @@ public class CartRepository {
     public Cart findCartById(Long id) {
         return em.find(Cart.class, id);
     }
+
     public List<Cart> findCartsByItem(Item item) {
         return em.createQuery("select c from Cart c where c.item = :item", Cart.class)
                 .setParameter("item", item)
                 .getResultList();
     }
-
 
 
     public void remove(Long id){

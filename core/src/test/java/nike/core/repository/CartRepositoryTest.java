@@ -30,7 +30,6 @@ public class CartRepositoryTest {
         cart1.setItem(itemService.findOne(1L));
         cart1.setMember(memberRepository.findMember(1L));
         cart1.setItemCount(1);
-        cart1.setItemPrice(itemService.findOne(1L).getPrice());
 
         cartRepository.save(cart1);
 
