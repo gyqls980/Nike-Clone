@@ -38,22 +38,22 @@ public class OrderServiceTest {
         member.setName("지연");
         member.setPhone("010-2222-2222");
         em.persist(member);
-//        em.persist(member2);
 
-        Item item = itemRepository.findItemById(1L);
+        Item item1 = itemRepository.findItemById(1L);
+        Item item2 = itemRepository.findItemById(2L);
 
         int orderCount=2;
         String addr = "서울시 국민대학교";
 
         //when
-        Long orderId = orderService.order(member.getId(), addr, item.getId(), orderCount);
+        Long orderId = orderService.order(member.getId(), addr, List.of(item1.getId(), item2.getId()), orderCount);
 
         //then
         Order getOrder = orderRepository.findOne(orderId);
         System.out.print("주문" + getOrder.getMember() + " 주소 : " + getOrder.getAddress());
 
         assertEquals("상품 주문시 상태는 ORDER", OrderStatus.READY, getOrder.getStatus());
-        assertEquals("주문한 상품 종류 수가 정확해야 한다.",1, getOrder.getOrderItems().size());
+        assertEquals("주문한 상품 종류 수가 정확해야 한다.",2, getOrder.getOrderItems().size());
     }
 
     @Test
@@ -71,7 +71,7 @@ public class OrderServiceTest {
         String addr = "서울시 국민대학교";
 
         //when
-        Long orderId = orderService.order(member.getId(), addr, item.getId(), orderCount);
+        Long orderId = orderService.order(member.getId(), addr, List.of(item.getId()), orderCount);
         Order getOrder = orderRepository.findOne(orderId);
 
         List<Order> orderlist = orderService.findOrders(member);
@@ -93,7 +93,7 @@ public class OrderServiceTest {
 
         int orderCount=2;
         String addr = "서울시 국민대학교";
-        Long orderId = orderService.order(member.getId(), addr, item.getId(), orderCount);
+        Long orderId = orderService.order(member.getId(), addr, List.of(item.getId()), orderCount);
 
         orderService.cancelOrder(orderId);
         Order getOrder = orderRepository.findOne(orderId);
