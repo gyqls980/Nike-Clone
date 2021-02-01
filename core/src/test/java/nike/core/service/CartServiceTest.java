@@ -44,7 +44,7 @@ public class CartServiceTest {
     @Test
     public void 장바구니수정(){
         Cart cart1 = cartService.findOne(21L);
-        cart1.setItemCount(2);
+        cartService.updateCount(cart1.getId(), 2);
         Cart cart2 = cartService.findOne(21L);
         Assertions.assertEquals(2, cart2.getItemCount());
     }

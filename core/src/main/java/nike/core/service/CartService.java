@@ -51,7 +51,8 @@ public class CartService {
     }
 
     // 상품수량변경
-    public void updateCount(Cart cart, Integer count){
-        cart.setItemCount(count);
+    public void updateCount(Long cartId, Integer count){
+        Cart cartById = cartRepository.findCartById(cartId);
+        cartById.setItemCount(count);
     }
 }
