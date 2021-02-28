@@ -35,4 +35,10 @@ public class CategoryRepository {
                 .getResultList();
     }
 
+    public Category findCategoryByTargetNLower(String target, String lower) {
+        return em.createQuery("select c from Category c where c.target = :target and (c.lowerCase = :lower or c.upperCase=:lower)", Category.class)
+                .setParameter("target", target)
+                .setParameter("lower", lower)
+                .getResultList().get(0);
+    }
 }
