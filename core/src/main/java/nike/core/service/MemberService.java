@@ -3,7 +3,7 @@ package nike.core.service;
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Member;
 import nike.core.repository.MemberRepository;
-import org.springframework.security.core.parameters.P;
+//import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +27,7 @@ public class MemberService {
 
     // 중복 확인
     private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findMemberByEmail(member.getEmail());
+        Optional<Member> findMembers = memberRepository.findMemberByEmail(member.getEmail());
         if (!findMembers.isEmpty()){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
