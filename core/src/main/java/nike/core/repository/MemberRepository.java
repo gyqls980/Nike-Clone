@@ -2,8 +2,9 @@ package nike.core.repository;
 
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Member;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class MemberRepository {
 
     private final EntityManager em;
@@ -21,10 +23,10 @@ public class MemberRepository {
     }
 
     // DB에서 이메일로 회원 검색
-    public List<Member> findMemberByEmail(String email){
+    public Optional<Member> findMemberByEmail(String email){
         return em.createQuery("select m from Member m where m.email = :email", Member.class)
                 .setParameter("email", email)
-                .getResultList();
+                .getResultStream().findAny();
     }
 
     // DB에서 ID로 회원 검색
