@@ -3,7 +3,10 @@ package nike.core.controller;
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Member;
 import nike.core.domain.Order;
+import nike.core.domain.OrderItem;
 import nike.core.repository.MemberRepository;
+import nike.core.repository.OrderItemRepository;
+import nike.core.repository.OrderRepository;
 import nike.core.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
+    private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
     private final MemberRepository memberRepository;
 
     @PostMapping("/order")
@@ -39,5 +44,13 @@ public class OrderController {
         orderService.cancelOrder(orderId);
 
         return "Success";
+    }
+
+    @GetMapping("/orderItems")
+    public List<OrderItem> findOrderItems(@RequestParam("orderId") Long orderId){
+        Order order = orderRepository.findOne(orderId);
+        List<OrderItem> orderItems = orderItemRepository.findOrderItems(order);
+
+        return orderItems;
     }
 }
