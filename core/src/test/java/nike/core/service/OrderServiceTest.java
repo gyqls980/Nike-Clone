@@ -42,11 +42,12 @@ public class OrderServiceTest {
         Item item1 = itemRepository.findItemById(1L);
         Item item2 = itemRepository.findItemById(2L);
 
-        int orderCount=2;
+        int orderCount1=2;
+        int orderCount2=1;
         String addr = "서울시 국민대학교";
 
         //when
-        Long orderId = orderService.order(member.getId(), addr, List.of(item1.getId(), item2.getId()), orderCount);
+        Long orderId = orderService.order(member.getId(), addr, List.of(item1.getId(), item2.getId()), List.of(orderCount1, orderCount2));
 
         //then
         Order getOrder = orderRepository.findOne(orderId);
@@ -67,11 +68,12 @@ public class OrderServiceTest {
 
         Item item = itemRepository.findItemById(1L);
 
-        int orderCount=2;
+        int orderCount1=2;
+        int orderCount2=1;
         String addr = "서울시 국민대학교";
 
         //when
-        Long orderId = orderService.order(member.getId(), addr, List.of(item.getId()), orderCount);
+        Long orderId = orderService.order(member.getId(), addr, List.of(item.getId()), List.of(orderCount1, orderCount2));
         Order getOrder = orderRepository.findOne(orderId);
 
         List<Order> orderlist = orderService.findOrders(member);
@@ -91,9 +93,10 @@ public class OrderServiceTest {
 
         Item item = itemRepository.findItemById(1L);
 
-        int orderCount=2;
+        int orderCount1=2;
+        int orderCount2=1;
         String addr = "서울시 국민대학교";
-        Long orderId = orderService.order(member.getId(), addr, List.of(item.getId()), orderCount);
+        Long orderId = orderService.order(member.getId(), addr, List.of(item.getId()), List.of(orderCount1, orderCount2));
 
         orderService.cancelOrder(orderId);
         Order getOrder = orderRepository.findOne(orderId);
