@@ -26,13 +26,13 @@ public class OrderController {
         return orderId;
     }
 
-//    @GetMapping("/orders")
-//    public List<Order> findOrders(@RequestParam("memberId") Long memberId){
-//        Member member = memberRepository.findMember(memberId);
-//        List<Order> orders = orderService.findOrders(member);
-//
-//        return orders;
-//    }
+    @GetMapping("/orders")
+    public List<Order> findOrders(@RequestParam("memberId") Long memberId){
+        Member member = memberRepository.findMember(memberId);
+        List<Order> orders = orderService.findOrders(member);
+
+        return orders;
+    }
 
     @GetMapping("/order")
     public String cancelOrder(@RequestParam("orderId") Long orderId){
