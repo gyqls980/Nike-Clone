@@ -22,11 +22,6 @@ public class Wishlist {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    public void setMember(Member member) {
-        this.member = member;
-        member.getWishlists().add(this);
-    }
-
     public static Wishlist createWishlist(Member member, Item item){
         Wishlist wishlist = new Wishlist();
         wishlist.setMember(member);
