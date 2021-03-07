@@ -6,8 +6,10 @@ import nike.core.domain.Member;
 import nike.core.domain.Wishlist;
 import nike.core.repository.WishlistRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class WishlistService {
 
