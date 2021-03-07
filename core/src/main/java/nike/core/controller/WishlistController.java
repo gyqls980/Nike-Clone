@@ -3,16 +3,21 @@ package nike.core.controller;
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Item;
 import nike.core.domain.Member;
+import nike.core.domain.Wishlist;
 import nike.core.repository.ItemRepository;
 import nike.core.repository.MemberRepository;
+import nike.core.repository.WishlistRepository;
 import nike.core.service.WishlistService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class WishlistController {
 
     private final WishlistService wishlistService;
+    private final WishlistRepository wishlistRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
@@ -27,5 +32,25 @@ public class WishlistController {
 
         return wishlistId;
     }
+
+    @GetMapping("/wishlist")
+    @ResponseBody
+    public List<Wishlist> findWishlists(@RequestParam Long memberId){
+        Member member = memberRepository.findMember(memberId);
+        List<Wishlist> wishlists = wishlistRepository.findWishlists(member);
+
+        return wishlists;
+
+    }
+
+    @DeleteMapping("wishlist/{wishlistId}")
+    @ResponseBody
+    public String removeWishlist(@PathVariable(name="wishlistId") Long wishlistId){
+        wishlistService.removeWishlist(wishlistId);
+
+        return "Success";
+    }
+
+
 
 }
