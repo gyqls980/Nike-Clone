@@ -27,10 +27,10 @@ public class OrderService {
         List<OrderItem> orderItems = new ArrayList<OrderItem>();
         //엔티티 조회
         Member member = memberRepository.findMember(memberId);
-        for (Long itemid : itemId) {
-            Item item = itemRepository.findItemById(itemid);
+        for (int i = 0; i < itemId.size(); i++) {
+            Item item = itemRepository.findItemById(itemId.get(i));
             //주문상품 생성
-            OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
+            OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count.get(i));
             orderItems.add(orderItem);
         }
         //주문 생성

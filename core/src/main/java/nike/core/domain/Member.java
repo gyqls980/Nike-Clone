@@ -1,5 +1,6 @@
 package nike.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -20,15 +21,27 @@ public class Member {
     private String name;
     private String phone;
 
+    /*
+    [Could not write JSON 오류]
+    해결방법 1.
+    - 해당 Object를 JSON 타입으로 변환을 하기 위해서는 FetchType.LAZY 설정을 지운다.
+    해결방법 2.
+    - 해당 Object를 JSON으로 변환하지 않는다면, @JsonIgnore 어노테이션을 nested 객체에 붙인다.
+    */
+
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Wishlist> wishlists = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Cart> carts = new ArrayList<>();
 
