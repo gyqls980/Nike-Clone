@@ -1,5 +1,6 @@
 package nike.core.service;
 
+import nike.core.domain.Item;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,20 @@ public class ItemServiceTest {
     @Test
     public void findItems() {
         System.out.println("item : " + itemService.findOne(1L).getName());
+    }
+
+
+    @Test
+    public void findItemsByAll() {
+        for(Item i : itemService.findItems("woman", "shoes", "running")){
+            System.out.println("i. = " + i.getName());
+        }
+    }
+
+    @Test
+    public void findItemsByTwo() {
+        for(Item i : itemService.findItems("woman", "shoes")){
+            System.out.println("i. = " + i.getName());
+        }
     }
 }

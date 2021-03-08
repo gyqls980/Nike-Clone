@@ -1,6 +1,8 @@
 package nike.core.repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Category;
 import org.springframework.stereotype.Repository;
@@ -35,10 +37,18 @@ public class CategoryRepository {
                 .getResultList();
     }
 
-    public Category findCategoryByTargetNLower(String target, String lower) {
-        return em.createQuery("select c from Category c where c.target = :target and (c.lowerCase = :lower or c.upperCase=:lower)", Category.class)
+    public Optional<Category> findCategoryByAll(String target, String upper, String lower) {
+        return em.createQuery("select c from Category c where c.target = :target and c.upperCase = :upper and c.lowerCase=:lower", Category.class)
                 .setParameter("target", target)
+                .setParameter("upper", upper)
                 .setParameter("lower", lower)
-                .getResultList().get(0);
+                .getResultStream().findAny();
+    }
+
+    public List<Category> findCategoryByTwo(String target, String upper) {
+        return em.createQuery("select c from Category c where c.target = :target and c.upperCase = :upper", Category.class)
+                .setParameter("target", target)
+                .setParameter("upper", upper)
+                .getResultList();
     }
 }

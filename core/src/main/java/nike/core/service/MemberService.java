@@ -3,7 +3,7 @@ package nike.core.service;
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Member;
 import nike.core.repository.MemberRepository;
-import org.springframework.security.core.parameters.P;
+//import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,7 +2,7 @@ package nike.core.repository;
 
 import lombok.RequiredArgsConstructor;
 import nike.core.domain.Member;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

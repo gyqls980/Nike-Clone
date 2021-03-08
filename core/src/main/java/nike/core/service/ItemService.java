@@ -8,7 +8,9 @@ import nike.core.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,9 +23,17 @@ public class ItemService {
         return itemRepository.findItemById(id);
     }
 
-    public List<Item> findItems(String target, String lower) {
-        Category category = categoryRepository.findCategoryByTargetNLower(target, lower);
-        return itemRepository.findItemsByCategory(category);
+    public List<Item> findItems(String target, String upper) {
+        List<Category> categories = categoryRepository.findCategoryByTwo(target, upper);
+        return itemRepository.findItemsByCategories(categories);
+    }
+
+    public List<Item> findItems(String target, String upper, String lower) {
+        Optional<Category> category = categoryRepository.findCategoryByAll(target, upper, lower);
+        if (category.isEmpty()) {
+            return Collections.<Item>emptyList();
+        }
+        return itemRepository.findItemsByCategory(category.get());
     }
 
 }

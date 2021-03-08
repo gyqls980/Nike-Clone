@@ -24,7 +24,7 @@ public class OrderService {
 
     @Transactional
     public Long order(Long memberId, String address, List<Long> itemId, int count) {
-        List<OrderItem> orderItems = new ArrayList();
+        List<OrderItem> orderItems = new ArrayList<OrderItem>();
         //엔티티 조회
         Member member = memberRepository.findMember(memberId);
         for (Long itemid : itemId) {
