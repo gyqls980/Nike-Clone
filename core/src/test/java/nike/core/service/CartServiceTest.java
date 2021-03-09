@@ -32,11 +32,7 @@ public class CartServiceTest {
     @Test(expected = IllegalStateException.class)
     public void 장바구니중복등록() {
         Cart cart1 = new Cart();
-        cart1.setItem(itemRepository.findItemById(1L));
-        cart1.setMember(memberRepository.findMember(1L));
-        cart1.setItemCount(1);
-
-        Long cart1Id = cartService.saveCart(cart1);
+        Long cart1Id = cartService.saveCart(memberRepository.findMember(1L), itemRepository.findItemById(1L),1);
 
         fail("illegal에러 안날 때 발생");
     }

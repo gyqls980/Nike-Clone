@@ -25,17 +25,22 @@ public class ReviewServiceTest {
     @Autowired private ItemRepository itemRepository;
 
     // 리뷰등록
+//    @Test
+//    public void 리뷰등록() {
+//        Review review1 = new Review();
+//        review1.setStar(5);
+//        review1.setMember(memberRepository.findMember(16L));
+//        review1.setItem(itemRepository.findItemById(1L));
+//        review1.setComment("최고");
+//
+//        Long review1Id = reviewService.create(memberRepository.findMember(16L), itemRepository.findItemById(1L), 5, "최고");
+//        assertEquals(review1, reviewService.findOne(review1Id));;
+//
+//    }
+
     @Test
-    public void 리뷰등록() {
-        Review review1 = new Review();
-        review1.setStar(5);
-        review1.setMember(memberRepository.findMember(16L));
-        review1.setItem(itemRepository.findItemById(1L));
-        review1.setComment("최고");
-
-        Long review1Id = reviewService.create(review1);
-        assertEquals(review1, reviewService.findOne(review1Id));;
-
+    public void 리뷰조회() {
+        System.out.println("reviewService = " + reviewService.findOne(23L));
     }
 
     @Test
@@ -47,8 +52,7 @@ public class ReviewServiceTest {
 
     @Test
     public void 리뷰삭제() {
-        Review review1 = reviewService.findOne(23L);
-        reviewService.remove(review1);
+        reviewService.remove(23L);
         reviewService.findOne(23L);
     }
 }

@@ -7,6 +7,7 @@ import nike.core.domain.Item;
 import nike.core.domain.Member;
 import nike.core.repository.CartRepository;
 import nike.core.repository.ItemRepository;
+import nike.core.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +21,11 @@ public class CartService {
 
     // 장바구니등록
     @Transactional
-    public Long saveCart(Cart cart){
+    public Long saveCart(Member member, Item item, int itemCount){
+        Cart cart = new Cart();
+        cart.setMember(member);
+        cart.setItem(item);
+        cart.setItemCount(itemCount);
         validateDuplicateCart(cart);
         cartRepository.save(cart);
         return cart.getId();
@@ -46,8 +51,8 @@ public class CartService {
     }
 
     // 상품삭제
-    public void removeCart(Cart cart){
-        cartRepository.remove(cart.getId());
+    public void removeCart(Long cartId){
+        cartRepository.remove(cartId);
     }
 
     // 상품수량변경
