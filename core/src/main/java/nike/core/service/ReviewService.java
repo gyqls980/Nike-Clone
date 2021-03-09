@@ -1,12 +1,16 @@
 package nike.core.service;
 
 import lombok.RequiredArgsConstructor;
+import nike.core.domain.Item;
+import nike.core.domain.Member;
 import nike.core.domain.Review;
+import nike.core.repository.MemberRepository;
 import nike.core.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,10 +18,17 @@ import java.time.LocalDateTime;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final MemberRepository memberRepository;
 
     // 리뷰등록
     @Transactional
-    public Long create(Review review) {
+    public Long create(Member member, Item item, Integer star, String coment) {
+        Review review = new Review();
+        review.setMember(member);
+        review.setItem(item);
+        review.setStar(star);
+        review.setComment(coment);
+        review.setReviewDate(LocalDateTime.now());
         reviewRepository.save(review);
         return review.getId();
     }
@@ -34,7 +45,8 @@ public class ReviewService {
 
     // 리뷰삭제
     @Transactional
-    public void remove(Review review){
+    public void remove(Long reviewId){
+        Review review = reviewRepository.findReviewById(reviewId);
         reviewRepository.remove(review);
     }
 
@@ -44,4 +56,9 @@ public class ReviewService {
     }
 
     // 멤버별 리뷰조회
+    public List<Review> findReviews(Long memberId){
+        Member member = memberRepository.findMember(memberId);
+        return member.getReviews();
+    }
+
 }

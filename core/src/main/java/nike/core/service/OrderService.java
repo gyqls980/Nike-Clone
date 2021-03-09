@@ -23,7 +23,7 @@ public class OrderService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public Long order(Long memberId, String address, List<Long> itemId, int count) {
+    public Long order(Long memberId, String address, List<Long> itemId, List<Integer> count) {
         List<OrderItem> orderItems = new ArrayList<OrderItem>();
         //엔티티 조회
         Member member = memberRepository.findMember(memberId);
