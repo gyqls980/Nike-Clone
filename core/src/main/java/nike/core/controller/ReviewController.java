@@ -7,7 +7,6 @@ import nike.core.domain.Member;
 import nike.core.domain.Review;
 import nike.core.repository.MemberRepository;
 import nike.core.service.ItemService;
-import nike.core.service.MemberService;
 import nike.core.service.ReviewService;
 import org.springframework.web.bind.annotation.*;
 
